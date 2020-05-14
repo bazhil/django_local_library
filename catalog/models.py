@@ -1,3 +1,5 @@
+#  coding: utf-8
+
 from django.db import models
 from django.urls import reverse #Used to generate URLs by reversing the URL patterns
 import uuid # Required for unique book instances
@@ -22,6 +24,7 @@ class Book(models.Model):
     Model representing a book (but not a specific copy of a book).
     """
     title = models.CharField(max_length=200)
+    image = models.ImageField(null=True, blank=True)
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in the file.

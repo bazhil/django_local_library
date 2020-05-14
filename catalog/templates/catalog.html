@@ -1,0 +1,10 @@
+{% extends "template.html" %}
+{% block content %}
+{% for book in books %}
+<h2>{{ book.title }}</h2>
+<p>{{ book.author }}</p>
+<a href="#"><img class="img-responsive" src={{ book.image.url }} alt=""></a>
+<p>{{ book.display_genre }}</p>
+<p>{{ book.summary }}</p>
+{% endfor %}
+{% endblock %}

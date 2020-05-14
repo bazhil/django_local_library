@@ -1,3 +1,5 @@
+#  coding: utf-8
+
 """locallibrary URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,9 +18,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+from django.conf.urls.static import static
+from locallibrary import settings
+
+import sys
+sys.path.append('/home/user/PycharmProjects/locallibrary/catalog')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('catalog/', include('catalog.urls')),
+    path(r'catalog/', include('catalog.urls')),
     path('', RedirectView.as_view(url='/catalog/', permanent=True)),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

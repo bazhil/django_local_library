@@ -1,7 +1,9 @@
-from django.urls import path
-from . import views
+# coding: utf-8
+
+from django.conf.urls import *
+from catalog.views import catalog
 
 
 urlpatterns = [
-
+    url(r'^$', catalog),
 ]
