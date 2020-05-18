@@ -20,6 +20,7 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from django.conf.urls.static import static
 from locallibrary import settings
+from catalog.views import index, catalog
 
 import sys
 sys.path.append('/home/user/PycharmProjects/locallibrary/catalog')
@@ -27,6 +28,7 @@ sys.path.append('/home/user/PycharmProjects/locallibrary/catalog')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'catalog/', include('catalog.urls')),
+    path('catalog/', catalog, name='catalog'),
+    path('index/', index, name='index'),
     path('', RedirectView.as_view(url='/catalog/', permanent=True)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
