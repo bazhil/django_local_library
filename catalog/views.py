@@ -72,3 +72,27 @@ class BookDetailView(generic.DetailView):
             'catalog/book_detail.html',
             context={'book': book_id, }
         )
+
+
+class AuthorListView(generic.ListView):
+    model = Author
+
+    def get_context_data(self, **kwargs):
+        # В первую очередь получаем базовую реализацию контекста
+        context = super(AuthorListView, self).get_context_data(**kwargs)
+        # Добавляем новую переменную к контексту и иниуиализируем ее некоторым значением
+        context['author_list'] = Author.objects.all()
+        return context
+
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
+
+    def author_detail_view(request, pk):
+        author_id=get_object_or_404(Author, pk=pk)
+
+        return render(
+            request,
+            'catalog/author_detail.html',
+            context={'author': author_id, }
+        )
