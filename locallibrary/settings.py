@@ -128,3 +128,5 @@ STATIC_URL = '/static/'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+# LOGOUT_REDIRECT_URL = '/' #dont work redirect to logging_out.html from MDN tutorial
