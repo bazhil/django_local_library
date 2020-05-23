@@ -96,7 +96,6 @@ class BookInstance(models.Model):
         return False
 
     class Meta:
-
         permissions = (("can_mark_returned", "Set book as returned"),)
 
 
