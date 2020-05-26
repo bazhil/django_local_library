@@ -3,7 +3,8 @@
 from django.conf.urls import *
 from django.urls import path
 from catalog.views import index, BookListView, BookDetailView, AuthorListView, AuthorDetailView, \
-    LoanedBooksByUserListView, LoanedBooks, renew_book_librarian, AuthorCreate, AuthorUpdate, AuthorDelete
+    LoanedBooksByUserListView, LoanedBooks, renew_book_librarian, AuthorCreate, AuthorUpdate, AuthorDelete,\
+    BookCreate, BookUpdate, BookDelete
 
 
 
@@ -19,4 +20,7 @@ urlpatterns = [
     url(r'^author/create/$', AuthorCreate.as_view(), name='author_create'),
     url(r'^author/(?P<pk>\d+)/update/$', AuthorUpdate.as_view(), name='author_update'),
     url(r'^author/(?P<pk>\d+)/delete/$', AuthorDelete.as_view(), name='author_delete'),
+    url(r'^book/create/$', BookCreate.as_view(), name='book_create'),
+    url(r'^book/(?P<pk>\d+)/update/$', BookUpdate.as_view(), name='book_update'),
+    url(r'^book/(?P<pk>\d+)/delete/$', BookDelete.as_view(), name='book_delete'),
 ]
