@@ -1,5 +1,7 @@
 #  coding: utf-8
 
+import sys
+sys.path.append('/home/user/PycharmProjects/locallibrary/catalog')
 
 from django.template import loader, Context
 from django.http import HttpResponse
@@ -16,20 +18,16 @@ import datetime
 
 from catalog.forms import RenewBookForm
 
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
-import sys
-sys.path.append('/home/user/PycharmProjects/locallibrary/catalog')
-from catalog.models import Book
+
+
+
 
 
 # Create your views here.
-
-# def catalog(request):
-#     books = Book.objects.all()
-#     t = loader.get_template("catalog.html")
-#     c = Context({'books': books})
-#
-#     return HttpResponse(t.render(c.flatten()))
 
 
 def index(request):
@@ -55,7 +53,6 @@ def index(request):
         context={'num_books': num_books, 'num_instances': num_instances,
                  'num_instances_available': num_instances_available, 'num_authors': num_authors, 'num_visits':num_visits},
     )
-
 
 
 class BookListView(generic.ListView):
@@ -165,10 +162,6 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst':book_inst})
 
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from .models import Author
-
 class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
@@ -197,3 +190,11 @@ class BookUpdate(UpdateView):
 class BookDelete(DeleteView):
     model = Book
     success_url = reverse_lazy('books')
+
+
+class AuthorCreate(PermissionRequiredMixin, CreateView):
+    # https://developer.mozilla.org/ru/docs/Learn/Server-side/Django/Testing
+    model = Author
+    fields = '__all__'
+    initial = {'date_of_death': '12/10/2016', }
+    permission_required = 'catalog.can_mark_returned'
